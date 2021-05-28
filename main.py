@@ -1,4 +1,6 @@
 import random
+import time
+
 encouraging_message = ("Don't be scared, you can do it!", "If you don't try, you can't win!", "What's the worst that can happen? Face your fears!")
 random_int_for_e_m = random.randint(1,3) - 1
 in_basement = True
@@ -41,6 +43,7 @@ while in_basement:
   elif "blue" in which_door:
     print("You are in the music room")
     print("As you stand in the music room, you see music stands, rosin, a tuba case, sheet music, and you also hear creepy music playing behind a curtain.")
+    time.sleep(3)
     print("SLAM! Oh no...the door just slammed shut behind you.")
     check_blue = input("Which item, or where in the room, would you like to check? ").lower()
     while not(("curtain" in check_blue) or ("creepy" in check_blue) or ("behind" in check_blue)):
