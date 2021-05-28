@@ -4,13 +4,22 @@ import time
 encouraging_message = ("Don't be scared, you can do it!", "If you don't try, you can't win!", "What's the worst that can happen? Face your fears!")
 random_int_for_e_m = random.randint(1,3) - 1
 in_basement = True
+basement_visiting_record = {"yellow": False, "red": False, "blue": False}
 
 #helper functions
 def back_to_the_hallway():
   stay_go_back = input("Would you like to go back to the hallway? (y/n)").lower()
-    while "y" not in stay_go_back:
-      print(encouraging_message[random_int_for_e_m])
-      stay_go_back = input("Would you like to go back to the hallway? ").lower()
+  while "y" not in stay_go_back:
+    print(encouraging_message[random_int_for_e_m])
+    stay_go_back = input("Would you like to go back to the hallway? ").lower()
+
+#not yet implemented
+def accidental_location_revisit_check(record_dict, selection):
+  if record_dict[selection]:
+    if "n" in input("You have been there before. Are you sure you would like to go back to that creepy place again? (y/n)").lower():
+      return True
+    else:
+      return False
 
 #introduction
 print("Welcome to the Choose Your Own Adventure Game!")
