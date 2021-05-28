@@ -5,7 +5,7 @@ print("Welcome to the Choose Your Own Adventure Game!")
 print("And so the story begins...")
 print("You have just woken up in a hallway with no memory.  There are three doors and a rug on the floor")
 print("You decided to either look for a clue under the rug or in your pockets")
-look = input("Where would you like to look? (rug or pockets").lower()
+look = input("Where would you like to look? (rug or pockets)").lower()
 if "pockets" in look:
   rug =  input("Your pockets are empty.  Do you want to look under the rug? (y/n)")
   while rug != ("y"):
