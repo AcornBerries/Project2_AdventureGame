@@ -1,14 +1,16 @@
 import random
 import time
+import math
 
 encouraging_message = ("Don't be scared, you can do it!", "If you don't try, you can't win!", "What's the worst that can happen? Face your fears!")
 random_int_for_e_m = random.randint(1,3) - 1
 in_basement = True
 
+
 #not yet implemented within the code.
 basement_visiting_record = {"yellow": False, "red": False, "blue": False}
 
-#helper functions
+#helper functions for the ground floor
 def back_to_the_hallway():
   stay_go_back = input("Would you like to go back to the hallway? (y/n)").lower()
   while "y" not in stay_go_back:
@@ -23,6 +25,7 @@ def accidental_location_revisit_check(record_dict, selection):
     else:
       return False
 
+"""
 #introduction
 print("Welcome to the Choose Your Own Adventure Game!")
 print("And so the story begins...")
@@ -96,5 +99,55 @@ while in_basement:
         print("A gust of icy wind FORCES you upppppppppppppp the staircase...")
         in_basement = False
       else:#gives them a chance at reattempting the password immediately
-        if "y" not in input("Would you like to try at the password again? (y/n)").lower():
+        if "y" not in input("That is incorrect.  Would you like to try at the password again? (y/n)").lower():
           currently_attempting_password = False
+"""
+
+#the locations
+locations = (("living room", ("tv", 0,0), ("couch", 0,2)), ("dining room", ("stack of chairs", 1,0), ("table", 1,1)), ("bathroom", ("bathroom sink"), ("toilet")), ("kitchen", ("stove"), ("kitchen sink")))
+
+ladder_loc = (random.int(0, 3), random.int(0, 1))#first int is the room index, second int is the object index
+
+current_loc = [0, 0]#the first int is the index of the room, and the second is the index of the object.
+
+#helper functions for the main floor
+def hotcold_get_new_room():
+  current_loc[0] = int(input("Out of the living room (1), the dining room (2), the bathroom (3), and the kitchen (4), where would you like to go? ")) - 1
+
+def hotcold_get_new_obj():
+  print("In this room, there is a:")
+  object_counter = 0
+  for item in locations[current_loc[0]][1:]:
+    print("{} ({})".format(item[0], object_counter))#outputs item (0) etc. depending on the item and the number of the item
+    object_counter += 1
+  
+  current_loc[1] = int(input("Out of the above objects, which would you like to check?"))
+  
+
+print("Congratulations!  You have made it to the main floor!")
+print("You are now faced with an open-concept house layout.")
+
+
+
+# Living room: Tv and couch
+# Dining Room: Stack of Chairs and table
+# Bathroom: Sink and Toilet
+# Kitchen: Stove and Sink
+
+
+playing_hot_cold = True
+while playing_hot_cold:
+  hotcold_get_new_room()
+  #the distance is between the ladder and the object
+
+  distance_old = math.sqrt((locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1])^2 + (locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2])^2)
+  hotcold_get_new_obj()
+  distance_new = math.sqrt((locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1])^2 + (locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2])^2)
+
+#is the current object the ladder location?
+  if tuple(current_loc) == ladder_loc:
+    playing_hot_cold = False
+  else:
+    pass#to be finished
+
+print("CREAK. Whoosh. A trapdoor opens above you, and a ladder falls down, missing you by a hair.")
