@@ -103,11 +103,12 @@ while in_basement:
           currently_attempting_password = False
 """
 
+
 # Living room: Tv and couch
 # Dining Room: Stack of Chairs and table
 # Bathroom: Sink and Toilet
 # Kitchen: Stove and Sink
-locations = (("living room", ("tv", 0,0), ("couch", 0,2)), ("dining room", ("stack of chairs", 1,0), ("table", 1,1)), ("bathroom", ("bathroom sink", 2,3), ("toilet", 4,5)), ("kitchen", ("stove", 6,7), ("kitchen sink", 8,9)))
+locations = (("living room", ("tv", 5,8), ("couch",5,11)), ("dining room", ("stack of chairs", 22,1), ("table", 17,3)), ("bathroom", ("bathroom sink", 3,1), ("toilet", 1,1)), ("kitchen", ("stove", 15,11), ("kitchen sink", 23,10)))
 
 ladder_loc = (random.randint(0, 3), random.randint(1, 2))#first int is the room index, second int is the object index
 
@@ -135,19 +136,47 @@ def current_distance_to_ladder():
 print("Congratulations!  You have made it to the main floor!")
 print("You are now faced with an open-concept house layout.")
 
-playing_hot_cold = True
-while playing_hot_cold:
+while True:
   hotcold_get_new_room()
 
   #the distance is between the ladder and the object
   distance_old = current_distance_to_ladder()
   hotcold_get_new_obj()
-  distance_new = current_distance_to_ladder()
+  distance_new = current_distance_to_ladder()#not distance new, distance current
 
 #is the current object the ladder location?
   if tuple(current_loc) == ladder_loc:
-    playing_hot_cold = False
-  else:
-    pass#to be finished
+    break
+  elif distance_new <= 2:
+    print("Hot")
+  elif distance_new > 20:
+    print("Cold")
+  elif distance_new < distance_old:
+    print("Warmer")
+  elif distance_new > distance_old:
+    print("Colder")
+  
+  while True:
+    y_n_check = str(input("Would you like to check another object in this room: ")
+    if "yes" in y_n_check:
+      hotcold_get_new_obj()
+      break
+    else:
+      y_n_other_room = str(input("Would you like to check another object in another room: "))
+      if "yes" in y_n_check:
+        distance_old = current_distance_to_ladder()
+        hotcold_get_new_room()
+        hotcold_get_new_obj()
+        distance_new = current_distance_to_ladder()
+        break
+      else:
+        print(encouraging_message)
+  
+  
 
+
+    
+
+#The ladder location is at a specific thing in the main floor (bathroom sink, chairs, etc.)
 print("CREAK. Whoosh. A trapdoor opens above you, and a ladder falls down, missing you by a hair.")
+
