@@ -103,12 +103,15 @@ while in_basement:
           currently_attempting_password = False
 """
 
-#the locations
-locations = (("living room", ("tv", 0,0), ("couch", 0,2)), ("dining room", ("stack of chairs", 1,0), ("table", 1,1)), ("bathroom", ("bathroom sink"), ("toilet")), ("kitchen", ("stove"), ("kitchen sink")))
+# Living room: Tv and couch
+# Dining Room: Stack of Chairs and table
+# Bathroom: Sink and Toilet
+# Kitchen: Stove and Sink
+locations = (("living room", ("tv", 0,0), ("couch", 0,2)), ("dining room", ("stack of chairs", 1,0), ("table", 1,1)), ("bathroom", ("bathroom sink", 2,3), ("toilet", 4,5)), ("kitchen", ("stove", 6,7), ("kitchen sink", 8,9)))
 
-ladder_loc = (random.int(0, 3), random.int(0, 1))#first int is the room index, second int is the object index
+ladder_loc = (random.randint(0, 3), random.randint(1, 2))#first int is the room index, second int is the object index
 
-current_loc = [0, 0]#the first int is the index of the room, and the second is the index of the object.
+current_loc = [0, 1]#the first int is the index of the room, and the second is the index of the object.
 
 #helper functions for the main floor
 def hotcold_get_new_room():
@@ -116,33 +119,30 @@ def hotcold_get_new_room():
 
 def hotcold_get_new_obj():
   print("In this room, there is a:")
-  object_counter = 0
+  object_counter = 1
   for item in locations[current_loc[0]][1:]:
-    print("{} ({})".format(item[0], object_counter))#outputs item (0) etc. depending on the item and the number of the item
+    print("{} ({})".format(item[0], object_counter))#outputs item (1) etc. depending on the item and the number of the item
     object_counter += 1
   
-  current_loc[1] = int(input("Out of the above objects, which would you like to check?"))
-  
+  current_loc[1] = int(input("Out of the above objects, which would you like to check? (enter the number)"))
 
+def current_distance_to_ladder():
+  x_diff = locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1]
+  y_diff = locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2]
+  return math.sqrt(x_diff^2 + y_diff^2)
+
+#MAIN FLOOR CODE
 print("Congratulations!  You have made it to the main floor!")
 print("You are now faced with an open-concept house layout.")
-
-
-
-# Living room: Tv and couch
-# Dining Room: Stack of Chairs and table
-# Bathroom: Sink and Toilet
-# Kitchen: Stove and Sink
-
 
 playing_hot_cold = True
 while playing_hot_cold:
   hotcold_get_new_room()
-  
+
   #the distance is between the ladder and the object
-  distance_old = math.sqrt((locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1])^2 + (locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2])^2)
+  distance_old = current_distance_to_ladder()
   hotcold_get_new_obj()
-  distance_new = math.sqrt((locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1])^2 + (locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2])^2)
+  distance_new = current_distance_to_ladder()
 
 #is the current object the ladder location?
   if tuple(current_loc) == ladder_loc:
