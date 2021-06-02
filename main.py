@@ -138,8 +138,8 @@ print("You are now faced with an open-concept house layout.")
 playing_hot_cold = True
 while playing_hot_cold:
   hotcold_get_new_room()
+  
   #the distance is between the ladder and the object
-
   distance_old = math.sqrt((locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1])^2 + (locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2])^2)
   hotcold_get_new_obj()
   distance_new = math.sqrt((locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1])^2 + (locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2])^2)
