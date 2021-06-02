@@ -6,7 +6,7 @@ encouraging_message = ("Don't be scared, you can do it!", "If you don't try, you
 random_int_for_e_m = random.randint(1,3) - 1
 in_basement = True
 
-
+#comment
 #not yet implemented within the code.
 basement_visiting_record = {"yellow": False, "red": False, "blue": False}
 
