@@ -125,25 +125,27 @@ def hotcold_get_new_obj():
     print("{} ({})".format(item[0], object_counter))#outputs item (1) etc. depending on the item and the number of the item
     object_counter += 1
   
-  current_loc[1] = int(input("Out of the above objects, which would you like to check? (enter the number)"))
+  current_loc[1] = int(input("Out of the above objects, which would you like to check? (enter the number) "))
 
 def current_distance_to_ladder():
-  x_diff = locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1]
-  y_diff = locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2]
+  x_diff = abs(locations[ladder_loc[0]][ladder_loc[1]][1] - locations[current_loc[0]][current_loc[1]][1])
+  y_diff = abs(locations[ladder_loc[0]][ladder_loc[1]][2] - locations[current_loc[0]][current_loc[1]][2])
   return math.sqrt(x_diff^2 + y_diff^2)
 
 #MAIN FLOOR CODE
 print("Congratulations!  You have made it to the main floor!")
 print("You are now faced with an open-concept house layout.")
 
+#initializing the game
+hotcold_get_new_room()
+
+#the distance is between the ladder and the object
+distance_old = current_distance_to_ladder()
+
+hotcold_get_new_obj()
+distance_new = current_distance_to_ladder()#not distance new, distance current
+
 while True:
-  hotcold_get_new_room()
-
-  #the distance is between the ladder and the object
-  distance_old = current_distance_to_ladder()
-  hotcold_get_new_obj()
-  distance_new = current_distance_to_ladder()#not distance new, distance current
-
 #is the current object the ladder location?
   if tuple(current_loc) == ladder_loc:
     break
@@ -155,14 +157,16 @@ while True:
     print("Warmer")
   elif distance_new > distance_old:
     print("Colder")
+  else:
+    print("You have not moved.")
   
   while True:
-    y_n_check = str(input("Would you like to check another object in this room: ")
+    y_n_check = input("Would you like to check another object in this room: ")
     if "yes" in y_n_check:
       hotcold_get_new_obj()
       break
     else:
-      y_n_other_room = str(input("Would you like to check another object in another room: "))
+      y_n_other_room = input("Would you like to check another object in another room: ")
       if "yes" in y_n_check:
         distance_old = current_distance_to_ladder()
         hotcold_get_new_room()
