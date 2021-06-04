@@ -2,8 +2,12 @@ import random
 import time
 import math
 
-encouraging_message = ("Don't be scared, you can do it!", "If you don't try, you can't win!", "What's the worst that can happen? Face your fears!")
-random_int_for_e_m = random.randint(1,3) - 1
+def encouragingMessage():
+  encouraging_message = ("Don't be scared, you can do it!", "If you don't try, you can't win!", "What's the worst that can happen? Face your fears!")
+  random_int_for_e_m = random.randint(1,3) - 1
+  print(encouraging_message[random_int_for_e_m])
+
+
 
 
 """
@@ -17,7 +21,7 @@ basement_visiting_record = {"yellow": False, "red": False, "blue": False}
 def back_to_the_hallway():
   stay_go_back = input("Would you like to go back to the hallway? (y/n)").lower()
   while "y" not in stay_go_back:
-    print(encouraging_message[random_int_for_e_m])
+    encouragingMessage()
     stay_go_back = input("Would you like to go back to the hallway? ").lower()
 
 #not yet implemented
@@ -39,7 +43,7 @@ look = input("Where would you like to look? (rug or pockets)").lower()
 if "pockets" in look:
   rug =  input("Your pockets are empty.  Do you want to look under the rug? (y/n)")
   while rug != ("y"):
-    print(encouraging_message[random_int_for_e_m])
+    encouragingMessage
     rug = input("Please try again: ").lower()
 print("You have found a key.")
 #three-room and hallway keypad gameplay loop
@@ -188,9 +192,7 @@ while True:
         distance_new = distance_coord_to_ladder(get_room_obj_coord(current_loc))
         break
       else:
-        print(encouraging_message)
-  
-  
+        encouragingMessage()
 
 
     
