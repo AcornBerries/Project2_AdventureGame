@@ -8,7 +8,7 @@ def encouragingMessage():
   random_int_for_e_m = random.randint(1,3) - 1
   print(encouraging_message[random_int_for_e_m])
 
-"""
+
 #helper functions for the ground floor
 def back_to_the_hallway():
   stay_go_back = input("Would you like to go back to the hallway? (y/n)").lower()
@@ -98,13 +98,17 @@ while in_basement:
       if "apple cider" in password_attempt:
         currently_attempting_password = False
         print("You have beat the basement!")
-        print("A door creeeeeeaks open in the wall, with a gaping pitch-black staircase looming behind it.")
+        time.sleep(1)
+        print("A door creeeeeeaks open in the wall,")
+        time.sleep(2)
+        print("with a gaping pitch-black staircase looming behind it.")
+        time.sleep(1)
         print("A gust of icy wind FORCES you upppppppppppppp the staircase...")
+        time.sleep(2)
         in_basement = False
       else:#gives them a chance at reattempting the password immediately
         if "y" not in input("That is incorrect.  Would you like to try at the password again? (y/n)").lower():
           currently_attempting_password = False
-"""
 
 
 # Living room: Tv and couch
