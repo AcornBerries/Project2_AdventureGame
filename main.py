@@ -121,7 +121,7 @@ while in_basement:
 # Dining Room: Stack of Chairs and table
 # Bathroom: Sink and Toilet
 # Kitchen: Stove and Sink
-locations = (("LIVING ROOM", ("Tv", 5,8), ("Couch",5,11), ("Carpet", 9,2)), ("DINING ROOM", ("Stack of Chairs", 22,1), ("Table", 17,3), ("Sideboard", 22,5)), ("BATHROOM", ("Bathroom sink", 3,1), ("Toilet", 1,1), ("Cupboard", 4,1)), ("KITCHEN", ("Stove", 15,11), ("Kitchen sink", 23,10), ("Fridge", 19,11)))
+locations = (("LIVING ROOM", ("Tv", 5,8), ("Couch",5,11), ("Carpet", 9,2)), ("DINING ROOM", ("Stack of Chairs", 22,1), ("Table", 17,3), ("Sideboard", 22,5)), ("BATHROOM", ("Bathroom sink", 3,1), ("Toilet", 1,1), ("Cupboard", 4,1)), ("KITCHEN", ("Stove", 15,11), ("Kitchen sink", 23,10), ("Fridge", 20,11)))
 
 current_loc = [0, 1]#the first int is the index of the room, and the second is the index of the object.
 
@@ -160,8 +160,8 @@ print("                                           Ground Floor Map")
 print(" ")
 print(" 12┌───────────────────────────────────────────────────────────────────────────────────────────────┐")
 print("   │                                               |                                               │")
-print(" 11│   .   .   .   .  (2)  .   .   .   .   .   .       .   .  (1)  .   .   .  (2)  .   .   .   .   │")
-print("   │                 Couch                         |         Stove          Fridge                 │")
+print(" 11│   .   .   .   .  (2)  .   .   .   .   .   .       .   .  (1)  .   .   .   .  (2)  .   .   .   │")
+print("   │                 Couch                         |         Stove              Fridge             │")
 print(" 10│   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .  (3)  │")
 print("   │                                               |                                           Sink│")
 print(" 9 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │")
