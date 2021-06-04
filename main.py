@@ -16,6 +16,7 @@ def back_to_the_hallway():
     encouragingMessage()
     stay_go_back = input("Would you like to go back to the hallway? ").lower()
 
+"""
 #not yet implemented
 def accidental_location_revisit_check(record_dict, selection):
   if record_dict[selection]:
@@ -24,15 +25,17 @@ def accidental_location_revisit_check(record_dict, selection):
     else:
       return False
 
-in_basement = True
-
 #not yet implemented within the code.
 basement_visiting_record = {"yellow": False, "red": False, "blue": False}
+"""
 
 #introduction
 print("Welcome to the Choose Your Own Adventure Game!")
 print("And so the story begins...")
-print("You have just woken up in a hallway with no memory.  There are three doors and a rug on the floor")
+time.sleep(2)
+print("You have just woken up in a hallway with no memory.")
+time.sleep(3)
+print("There are three doors and a rug on the floor.")
 #finding the key to open the three rooms
 print("You decided to either look for a clue under the rug or in your pockets")
 look = input("Where would you like to look? (rug or pockets)").lower()
@@ -42,7 +45,9 @@ if "pockets" in look:
     encouragingMessage
     rug = input("Please try again: ").lower()
 print("You have found a key.")
+
 #three-room and hallway keypad gameplay loop
+in_basement = True
 while in_basement:
   print("There are three doors you could open.")
   which_door = input("Which one do you choose?  The yellow, the red, or blue door? (enter the color)").lower()
@@ -70,7 +75,7 @@ while in_basement:
   elif "blue" in which_door:
     print("You are in the music room")
     print("As you stand in the music room, you see music stands, rosin, a tuba case, sheet music, and you also hear creepy music playing behind a curtain.")
-    time.sleep(3)
+    time.sleep(5)
     print("SLAM! Oh no...the door just slammed shut behind you.")
     #The blue door slams shut behind the person as they stand in the music room.
     check_blue = input("Which item, or where in the room, would you like to check? ").lower()
@@ -78,8 +83,9 @@ while in_basement:
       check_blue = input("Sorry, no clue here.  Try again: ").lower()
     print("You have found a Lute, an English horn, an Accordian, a Violin, and a Euphonium playing by themselves.  This is your clue.")
 
-    back_to_the_hallway()#this is slightly confusing, since we give the process for them to go back, so they think they did go back, and then we say the door is shut, so then they are disoriented. That happened to me.
-    print("Oh no.  You just realize the door is slammed shut and now you are locked in.")
+    back_to_the_hallway()#They try to go back, but can't.
+    print("Oh no.  You just realize that the door is locked; you are trapped in the haunted music room.")
+    time.sleep(1)
     print("Thankfully, you see a letter keypad on the door.")
     passcode = input("What password would you like to try? ").lower()
     while passcode != "leave":
@@ -91,7 +97,7 @@ while in_basement:
   #attempting the password in the hallway
   print("You are back in the hallway, facing a letter keypad.")
   password_or_another_room = input("Do you want to guess the password or enter another room? ").lower()
-  if "password" in password_or_another_room:
+  if ("password" in password_or_another_room) or ("guess" in password_or_another_room):
     currently_attempting_password = True#the while loop allows for immediate reattempting of the password
     while currently_attempting_password:
       password_attempt = input("Enter your attempt at the hallway password: ").lower()
