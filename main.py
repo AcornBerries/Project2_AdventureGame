@@ -10,7 +10,7 @@ def encouragingMessage():
     random_int_for_e_m = random.randint(1, 3) - 1
     print(encouraging_message[random_int_for_e_m])
 
-#NOTDONEYET
+playing_hotcold = False
 #s_int is a boolean parameter that is True when an integer input is desired, and False if a string is desired. By default, it is False.
 def take_input(prompt_str, is_int=False):
     user_input = input(prompt_str)
@@ -279,10 +279,14 @@ def print_map():
     )
 
 def hotcold_get_new_room():
+    previous_location = locations[current_loc[0]][0]
     letter_to_idx = {"a": 0, "b": 1, "c": 2, "d": 3}
     current_loc[0] = int(letter_to_idx[take_input(
         "Out of the living room (a), the kitchen (b), the bathroom (c), and the dining room (d), where would you like to go? (enter the letter) "
     ).lower()])
+    new_location = locations[current_loc[0]][0]
+    print("You have moved from the ", previous_location, "to", new_location)
+
 
 def hotcold_get_new_obj():
     print("In this room, there is a:")
@@ -297,6 +301,7 @@ def hotcold_get_new_obj():
         take_input(
             "Out of the above objects, which would you like to check? (enter the number) ", True
         ))
+
 
 
 def get_room_obj_coord(room_obj_idxs):
@@ -335,7 +340,8 @@ hotcold_get_new_obj()
 distance_new = distance_coord_to_ladder(get_room_obj_coord(current_loc))
 starting_location = "Basement Stairs"
 
-playing_hotcold = True#so take_input() will check for the word "map"
+#so take_input() will check for the word "map"
+playing_hotcold = False
 while playing_hotcold:
     #is the current object the ladder location?
     if tuple(current_loc) == ladder_loc:
