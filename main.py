@@ -156,11 +156,15 @@ while in_basement:
 # Dining Room: Stack of Chairs and table
 # Bathroom: Sink and Toilet
 # Kitchen: Stove and Sink
-locations = (("LIVING ROOM", ("Tv", 5, 8), ("Couch", 5, 11), ("Carpet", 9, 2)),
-             ("DINING ROOM", ("Stack of Chairs", 22, 1), ("Table", 17, 3), ("Sideboard", 22, 5)), 
-             ("BATHROOM", ("Bathroom sink", 3, 1), ("Toilet", 1, 1), ("Cupboard", 4, 1)),
-             ("KITCHEN", ("Stove", 15, 11), ("Kitchen sink", 23, 10),
-              ("Fridge", 20, 11)))
+locations = (
+    ("LIVING ROOM", ("Tv", 5, 8), ("Couch", 5, 11), ("Carpet", 9, 2)),
+    ("KITCHEN", ("Stove", 15, 11), ("Kitchen sink", 23, 10), ("Fridge", 20,
+                                                              11)),
+    ("BATHROOM", ("Bathroom sink", 3, 1), ("Toilet", 1, 1), ("Cupboard", 4,
+                                                             1)),
+    ("DINING ROOM", ("Stack of Chairs", 22, 1), ("Table", 17, 3), ("Sideboard",
+                                                                   22, 5)),
+)
 
 current_loc = [
     0, 1
@@ -169,10 +173,10 @@ current_loc = [
 
 #helper functions for the main floor
 def hotcold_get_new_room():
-    current_loc[0] = int(
-        input(
-            "Out of the living room (1), the dining room (2), the bathroom (3), and the kitchen (4), where would you like to go? "
-        )) - 1
+    letter_to_idx = {"a": 0, "b": 1, "c": 2, "d": 3}
+    current_loc[0] = int(letter_to_idx[input(
+        "Out of the living room (a), the kitchen (b), the bathroom (c), and the dining room (d), where would you like to go? (enter the letter) "
+    ).lower()])
 
 
 def hotcold_get_new_obj():
@@ -201,87 +205,89 @@ def distance_coord_to_ladder(coord_pair):
     y_diff = ladder_coords[1] - coord_pair[1]
     return math.sqrt(x_diff**2 + y_diff**2)
 
+
 def print_map():
-  print("                                           Ground Floor Map")
-  print(" ")
-  print(
-      " 12┌───────────────────────────────────────────────────────────────────────────────────────────────┐"
-  )
-  print(
-      "   │                                               |                                               │"
-  )
-  print(
-      " 11│   .   .   .   .  (2)  .   .   .   .   .   .       .   .  (1)  .   .   .   .  (2)  .   .   .   │"
-  )
-  print(
-      "   │                 Couch                         |         Stove              Fridge             │"
-  )
-  print(
-      " 10│   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .  (3)  │"
-  )
-  print(
-      "   │                                               |                                           Sink│"
-  )
-  print(
-      " 9 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │"
-  )
-  print(
-      "   │                                               |                    KITCHEN                    │"
-  )
-  print(
-      " 8 │   .   .   .   .  (1)TV.   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │"
-  )
-  print(
-      "   │                                               |                                               │"
-  )
-  print(
-      " 7 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │"
-  )
-  print(
-      "   │                 LIVING ROOM                   |                                               │"
-  )
-  print(
-      " 6 │   .   .   .   .   .   .   .   .   .   .   .    _ _._ _._ _._ _._ _._ _._ _._ _._ _._ _._ _._ _│"
-  )
-  print(
-      "   │                                               |                                               │"
-  )
-  print(
-      " 5 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .  (3)  .   │"
-  )
-  print(
-      "   │                                               |            DINING ROOM           Sideboard    │"
-  )
-  print(
-      " 4 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │"
-  )
-  print(
-      "   │                                               |                                               │"
-  )
-  print(
-      " 3 ├───────────────────┐   .   .   .   .   .   .       .   .   .   .  (2)  .   .   .   .   .   .   │"
-  )
-  print(
-      "   │     BATHROOM      │            Carpet         |                 Table                         │"
-  )
-  print(
-      " 2 │   .   .   .   .   │   .   .   .  (3)  .   .       .   .   .   .   .   .   .   .   .   .   .   │"
-  )
-  print(
-      "   │              Cup- │                           |                                     Stack     │"
-  )
-  print(
-      " 1 │  (1)  .  (2) (3)  │   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .  (1)  .   │"
-  )
-  print(
-      "   │Toilet  Sink  board│                         START                                 of Chairs   │"
-  )
-  print(
-      " 0 └───────────────────┴──────────────────────────(┼)──────────────────────────────────────────────┘"
-  )
-  print(
-      "       1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24"
-  )
+    print("                                           Ground Floor Map")
+    print(" ")
+    print(
+        " 12┌───────────────────────────────────────────────────────────────────────────────────────────────┐"
+    )
+    print(
+        "   │                                               |                                               │"
+    )
+    print(
+        " 11│   .   .   .   .  (2)  .   .   .   .   .   .       .   .  (1)  .   .   .   .  (2)  .   .   .   │"
+    )
+    print(
+        "   │                 Couch                         |         Stove              Fridge             │"
+    )
+    print(
+        " 10│   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .  (3)  │"
+    )
+    print(
+        "   │                                               |                                           Sink│"
+    )
+    print(
+        " 9 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │"
+    )
+    print(
+        "   │                                               |                    KITCHEN                    │"
+    )
+    print(
+        " 8 │   .   .   .   .  (1)TV.   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │"
+    )
+    print(
+        "   │                                               |                                               │"
+    )
+    print(
+        " 7 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │"
+    )
+    print(
+        "   │                 LIVING ROOM                   |                                               │"
+    )
+    print(
+        " 6 │   .   .   .   .   .   .   .   .   .   .   .    _ _._ _._ _._ _._ _._ _._ _._ _._ _._ _._ _._ _│"
+    )
+    print(
+        "   │                                               |                                               │"
+    )
+    print(
+        " 5 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .  (3)  .   │"
+    )
+    print(
+        "   │                                               |            DINING ROOM           Sideboard    │"
+    )
+    print(
+        " 4 │   .   .   .   .   .   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .   .   .   │"
+    )
+    print(
+        "   │                                               |                                               │"
+    )
+    print(
+        " 3 ├───────────────────┐   .   .   .   .   .   .       .   .   .   .  (2)  .   .   .   .   .   .   │"
+    )
+    print(
+        "   │     BATHROOM      │            Carpet         |                 Table                         │"
+    )
+    print(
+        " 2 │   .   .   .   .   │   .   .   .  (3)  .   .       .   .   .   .   .   .   .   .   .   .   .   │"
+    )
+    print(
+        "   │              Cup- │                           |                                     Stack     │"
+    )
+    print(
+        " 1 │  (1)  .  (2) (3)  │   .   .   .   .   .   .       .   .   .   .   .   .   .   .   .  (1)  .   │"
+    )
+    print(
+        "   │Toilet  Sink  board│                         START                                 of Chairs   │"
+    )
+    print(
+        " 0 └───────────────────┴──────────────────────────(┼)──────────────────────────────────────────────┘"
+    )
+    print(
+        "       1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24"
+    )
+
 
 #setting ladder object location and retrieving coordinates
 ladder_loc = (random.randint(0, 3), random.randint(1, 3)
