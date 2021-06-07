@@ -15,9 +15,12 @@ playing_hotcold = False
 def take_input(prompt_str, is_int=False):
     user_input = input(prompt_str)
     if playing_hotcold:
-      if "map" in user_input:
-          print_map()
-          user_input = input(prompt_str)
+      while True:
+        if "map" in user_input:
+            print_map()
+            user_input = input(prompt_str)
+        else:
+          break
 
     if is_int:
         casted_input = None
@@ -197,6 +200,7 @@ current_loc = [
 
 #helper functions for the main floor
 def print_map():
+    print("\n")
     print("                                           Ground Floor Map")
     print(" ")
     print(" 12┌───────────────────────────────────────────────────────────────────────────────────────────────┐")
@@ -228,10 +232,11 @@ def print_map():
 
 def hotcold_get_new_room():
     previous_location = locations[current_loc[0]][0]
+
     letter_to_idx = {"a": 0, "b": 1, "c": 2, "d": 3}
-    current_loc[0] = int(letter_to_idx[take_input(
-        "Out of the living room (a), the kitchen (b), the bathroom (c), and the dining room (d), where would you like to go? (enter the letter) "
-    ).lower()])
+    user_letter_input = take_input("Out of the living room (a), the kitchen (b), the bathroom (c), and the dining room (d), where would you like to go? (enter the letter) ")
+    current_loc[0] = int(letter_to_idx[user_letter_input])
+    
     new_location = locations[current_loc[0]][0]
     print("You have moved from the ", previous_location, "to", new_location)
 
@@ -272,6 +277,8 @@ ladder_loc = (random.randint(0, 3), random.randint(1, 3)
               )  #first int is the room index, second int is the object index
 ladder_coords = get_room_obj_coord(ladder_loc)
 
+playing_hotcold = True#so input will check for "map"
+
 #MAIN FLOOR CODE
 print("Congratulations!  You have made it to the main floor!")
 print("You are now faced with an open-concept house layout. Type \"map\" at any prompt to re-print this image.""")
@@ -288,8 +295,6 @@ hotcold_get_new_obj()
 distance_new = distance_coord_to_ladder(get_room_obj_coord(current_loc))
 starting_location = "Basement Stairs"
 
-#so take_input() will check for the word "map"
-playing_hotcold = False
 while playing_hotcold:
     #is the current object the ladder location?
     if tuple(current_loc) == ladder_loc:
