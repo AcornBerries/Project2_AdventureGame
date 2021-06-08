@@ -66,7 +66,7 @@ def accidental_location_revisit_check(record_dict, selection):
 #not yet implemented within the code.
 basement_visiting_record = {"yellow": False, "red": False, "blue": False}
 
-"""
+
 #introduction
 print("Welcome to the Choose Your Own Adventure Game!")
 print("And so the story begins...")
@@ -185,7 +185,6 @@ while in_basement:
                 ).lower():
                     currently_attempting_password = False
 
-"""
 
 
 # Living room: Tv and couch
@@ -240,19 +239,21 @@ def print_map():
     print("       1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24")
     print("\n")
 
-def hotcold_get_new_room():
-    previous_location = locations[current_loc[0]][0]
+def get_current_room_obj_name():
+    room_name = locations[current_loc[0]][0]
+    obj_name = locations[current_loc[0]][current_loc[1]][0]
+    return (room_name, obj_name)
 
+def hotcold_get_new_room(previous_room):
     letter_to_idx = {"a": 0, "b": 1, "c": 2, "d": 3}
     user_letter_input = take_input("Out of the living room (a), the kitchen (b), the bathroom (c), and the dining room (d), where would you like to go? (enter the letter) ")
     current_loc[0] = int(letter_to_idx[user_letter_input])
     
     new_location = locations[current_loc[0]][0]
-    print("You have moved from the", previous_location, "to the", new_location)
+    print("You have moved from the", previous_room, "to the", new_location)
 
 
-def hotcold_get_new_obj():
-    previous_obj = locations[current_loc[0]][current_loc[1]]
+def hotcold_get_new_obj(previous_object):
     print("In this room, there is a:")
     object_counter = 1
     for idx in range(3):
@@ -266,8 +267,8 @@ def hotcold_get_new_obj():
         take_input(
             "Out of the above objects, which would you like to check? (enter the number) ", True
         ))
-    new_obj = locations[current_loc[0]][current_loc[1]]
-    print("You have moved from the", previous_obj[0], "to the", new_obj[0])
+    new_obj_tuple = locations[current_loc[0]][current_loc[1]]
+    print("You have moved from the", previous_object, "to the", new_obj_tuple[0])
 
 
 
@@ -304,8 +305,9 @@ distance_old = distance_coord_to_ladder((
     11,
     0,
 ))  #(12, 0) is the coordinate pair of the basement door (START)
-hotcold_get_new_room()
-hotcold_get_new_obj()
+start_loc_names = get_current_room_obj_name()
+hotcold_get_new_room(start_loc_names[0])
+hotcold_get_new_obj(start_loc_names[1])
 #this variable is the current distance (after moving to the current object)
 distance_new = distance_coord_to_ladder(get_room_obj_coord(current_loc))
 starting_location = "Basement Stairs"
@@ -331,7 +333,10 @@ while playing_hotcold:
         if "y" in y_n_check:
             distance_old = distance_coord_to_ladder(
                 get_room_obj_coord(current_loc))
-            hotcold_get_new_obj()
+
+            from_room_obj = get_current_room_obj_name()
+            hotcold_get_new_obj(from_room_obj[1])
+
             distance_new = distance_coord_to_ladder(
                 get_room_obj_coord(current_loc))
             break
@@ -341,8 +346,11 @@ while playing_hotcold:
             if "y" in y_n_other_room:
                 distance_old = distance_coord_to_ladder(
                     get_room_obj_coord(current_loc))
-                hotcold_get_new_room()
-                hotcold_get_new_obj()
+
+                from_room_obj = get_current_room_obj_name()# ("ROOM", "OBJECT")
+                hotcold_get_new_room(from_room_obj[0])
+                hotcold_get_new_obj(from_room_obj[1])
+
                 distance_new = distance_coord_to_ladder(
                     get_room_obj_coord(current_loc))
                 break
