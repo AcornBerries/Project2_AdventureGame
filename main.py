@@ -1,3 +1,7 @@
+"""
+#Header. Story Outline?
+"""
+
 import random
 import time
 import math
@@ -13,12 +17,12 @@ def encouragingMessage():
 playing_hotcold = False
 #s_int is a boolean parameter that is True when an integer input is desired, and False if a string is desired. By default, it is False.
 def take_input(prompt_str, is_int=False):
-    user_input = input(prompt_str)
+    user_input = input("\n" + prompt_str)
     if playing_hotcold:
       while True:
         if "map" in user_input:
             print_map()
-            user_input = input(prompt_str)
+            user_input = input("\n" + prompt_str)
         else:
           break
 
@@ -30,11 +34,13 @@ def take_input(prompt_str, is_int=False):
                 break
             except ValueError:
                 print("You did not enter a plain digit. Please try again.")
-                user_input = input(prompt_str)
+                user_input = input("\n" + prompt_str)
                 continue
 
+        print("\n")
         return casted_input
     else:
+        print("\n")
         return user_input
 
 
@@ -48,7 +54,7 @@ def back_to_the_hallway():
             "Would you like to go back to the hallway? ").lower()
 
 
-"""
+
 #not yet implemented
 def accidental_location_revisit_check(record_dict, selection):
   if record_dict[selection]:
@@ -59,10 +65,10 @@ def accidental_location_revisit_check(record_dict, selection):
 
 #not yet implemented within the code.
 basement_visiting_record = {"yellow": False, "red": False, "blue": False}
-"""
 
+"""
 #introduction
-"""print("Welcome to the Choose Your Own Adventure Game!")
+print("Welcome to the Choose Your Own Adventure Game!")
 print("And so the story begins...")
 time.sleep(2)
 print("You have just woken up in a hallway with no memory.")
@@ -177,14 +183,17 @@ while in_basement:
                 if "y" not in take_input(
                         "That is incorrect.  Would you like to try at the password again? (y/n)"
                 ).lower():
-                    currently_attempting_password = False"""
+                    currently_attempting_password = False
+
+"""
+
 
 # Living room: Tv and couch
 # Dining Room: Stack of Chairs and table
 # Bathroom: Sink and Toilet
 # Kitchen: Stove and Sink
 locations = (
-    ("LIVING ROOM", ("Tv", 5, 8), ("Couch", 5, 11), ("Carpet", 9, 2)),
+    ("LIVING ROOM", ("Tv", 5, 8), ("Couch", 5, 11), ("Carpet", 9, 2), ("START", 11, 0)),
     ("KITCHEN", ("Stove", 15, 11), ("Kitchen sink", 23, 10), ("Fridge", 20,
                                                               11)),
     ("BATHROOM", ("Bathroom sink", 3, 1), ("Toilet", 1, 1), ("Cupboard", 4,
@@ -194,7 +203,7 @@ locations = (
 )
 
 current_loc = [
-    0, 1
+    0, 4
 ]  #the first int is the index of the room, and the second is the index of the object.
 
 
@@ -229,6 +238,7 @@ def print_map():
     print("   │Toilet  Sink  board│                     START |                                   of Chairs   │")
     print(" 0 └───────────────────┴──────────────────────(┼)──────────────────────────────────────────────────┘")
     print("       1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24")
+    print("\n")
 
 def hotcold_get_new_room():
     previous_location = locations[current_loc[0]][0]
@@ -238,15 +248,17 @@ def hotcold_get_new_room():
     current_loc[0] = int(letter_to_idx[user_letter_input])
     
     new_location = locations[current_loc[0]][0]
-    print("You have moved from the ", previous_location, "to", new_location)
+    print("You have moved from the", previous_location, "to the", new_location)
 
 
 def hotcold_get_new_obj():
+    previous_obj = locations[current_loc[0]][current_loc[1]]
     print("In this room, there is a:")
     object_counter = 1
-    for item in locations[current_loc[0]][1:]:
+    for idx in range(3):
+        obj_name = locations[current_loc[0]][object_counter][0]
         print(
-            "{} ({})".format(item[0], object_counter)
+            "{} ({})".format(obj_name, object_counter)
         )  #outputs item (1) etc. depending on the item and the number of the item
         object_counter += 1
 
@@ -254,6 +266,8 @@ def hotcold_get_new_obj():
         take_input(
             "Out of the above objects, which would you like to check? (enter the number) ", True
         ))
+    new_obj = locations[current_loc[0]][current_loc[1]]
+    print("You have moved from the", previous_obj[0], "to the", new_obj[0])
 
 
 
@@ -268,9 +282,8 @@ def distance_coord_to_ladder(coord_pair):
     y_diff = ladder_coords[1] - coord_pair[1]
     return math.sqrt(x_diff**2 + y_diff**2)
 
-"""
-take_input() is also used for the basement, and in the basement, take_input() checks for the word "map" as well.
-"""
+
+#take_input() is also used for the basement, and in the basement, take_input() checks for the word "map" as well.
 
 #setting ladder object location and retrieving coordinates
 ladder_loc = (random.randint(0, 3), random.randint(1, 3)
@@ -281,9 +294,11 @@ playing_hotcold = True#so input will check for "map"
 
 #MAIN FLOOR CODE
 print("Congratulations!  You have made it to the main floor!")
-print("You are now faced with an open-concept house layout. Type \"map\" at any prompt to re-print this image.""")
+print("You are now faced with an open-concept house layout. Type \"map\" at any prompt to re-print this image.")
 
 print_map()
+
+print("You have walked into the main floor, and are standing by the wall in the living room. \n")
 
 distance_old = distance_coord_to_ladder((
     11,
@@ -309,11 +324,6 @@ while playing_hotcold:
         print("Colder")
     else:
         print("You have not moved.")
-
-    #TO MAKE PROGRAM PROCESS MORE CLEAR WHILE PROGRAMMING IS INCOMPLETE
-    print("distance_new:", distance_new)
-    print("distance_old:", distance_old)
-    print("current_loc:", current_loc)
 
     while True:
         y_n_check = take_input(
@@ -343,3 +353,23 @@ while playing_hotcold:
 print(
     "CREAK. Whoosh. A trapdoor opens above you, and a ladder falls down, missing you by a hair."
 )
+open_trapdoor = str(input("Would you like to climb up the ladder? y/n "))
+while "n" in open_trapdoor:
+  encouragingMessage()
+  open_trapdoor = take_input("Please try again: ").lower()
+print("You steadily climb the ladder and reach a circular door. ")
+open_2nd_door = str(input("Would you like to open the second door? "))
+while "n" in open_2nd_door:
+  encouragingMessage()
+  open_2nd_door = take_input("Please try again: ").lower()
+print("You open the door, and realize you are sliding down a water slide! ")
+time.sleep(3)
+print("You land in a pool, and quickly remember where you are! ")
+print("Just a few minutes ago, you were swimming in your friend's pool! ")
+time.sleep(3)
+print("You look down at the bottom of the pool, see a vortex, and realize you must have been sucked in! ")
+time.sleep(3)
+print("With all your strength, you pull yourself out of the pool. ")
+time.sleep(3)
+print("You are saved!  Congratulations!  You have escaped from the house and now you are free! ")
+print("Just remember to always look (at the bottom of every pool) before you leap. ")
