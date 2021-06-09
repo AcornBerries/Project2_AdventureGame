@@ -1,7 +1,3 @@
-"""
-#Header. Story Outline?
-"""
-
 import random
 import time
 import math
